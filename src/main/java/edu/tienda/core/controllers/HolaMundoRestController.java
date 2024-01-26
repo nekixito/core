@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HolaMundoRestController {
-    
-    @GetMapping("/saludo")
+
+    @GetMapping("/hola")
     public String saludo(){
+        System.out.println("Ejecutando el metodo saludo");
         return "Hola Mundo Spring Boot";
     }
 }
