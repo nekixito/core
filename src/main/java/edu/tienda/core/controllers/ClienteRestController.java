@@ -38,10 +38,23 @@ public class ClienteRestController {
          */
     }
 
-    @PostMapping("clientes")
+    @PostMapping("/clientes")
     public Cliente altaCliente(@RequestBody Cliente cliente){
         clientes.add(cliente);
         return cliente;
+    }
+
+    @PutMapping("/clientes")
+    public Cliente modificacion(@RequestBody Cliente cliente){
+
+        Cliente clienteEncontrado = clientes.stream().
+                filter(cli -> cli.getUsername().equalsIgnoreCase(cliente.getUsername())).
+                findFirst().orElseThrow();
+
+        clienteEncontrado.setPassword(cliente.getPassword());
+        clienteEncontrado.setNombre(cliente.getNombre());
+
+        return clienteEncontrado;
     }
 
 
