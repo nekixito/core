@@ -57,6 +57,15 @@ public class ClienteRestController {
         return clienteEncontrado;
     }
 
+    @DeleteMapping("/clientes/{userName}")
+    public void deleteCliente(@PathVariable String userName){
+        Cliente clienteEncontrado = clientes.stream().
+                filter(cli -> cli.getUsername().equalsIgnoreCase(userName)).
+                findFirst().orElseThrow();
+
+        clientes.remove(clienteEncontrado);
+    }
+
 
 
 }
