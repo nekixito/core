@@ -1,8 +1,12 @@
 package edu.tienda.core.controllers;
 
 import edu.tienda.core.domain.Cliente;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,14 +22,14 @@ public class ClienteRestController {
     ));
 
     @GetMapping
-    public List<Cliente> getClientes(){
-        return clientes;
+    public ResponseEntity<?> getClientes(){
+        return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{userName}")
-    public Cliente getCliente(@PathVariable String userName){
+    public ResponseEntity<?> getCliente(@PathVariable String userName){
 
-        return clientes.stream().filter(cliente -> cliente.getUsername().equalsIgnoreCase(userName)).findFirst().orElseThrow();
+        return ResponseEntity.ok(clientes.stream().filter(cliente -> cliente.getUsername().equalsIgnoreCase(userName)).findFirst().orElseThrow());
 
         /*
         for (Cliente cli : clientes){
@@ -40,13 +44,21 @@ public class ClienteRestController {
     }
 
     @PostMapping
-    public Cliente altaCliente(@RequestBody Cliente cliente){
+    public ResponseEntity<?> altaCliente(@RequestBody Cliente cliente){
         clientes.add(cliente);
-        return cliente;
+
+        //Obteniendo URL de servicio
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{userName}")
+                .buildAndExpand(cliente.getUsername())
+                .toUri();
+
+        return ResponseEntity.created(location).body(cliente);
     }
 
     @PutMapping
-    public Cliente modificacion(@RequestBody Cliente cliente){
+    public ResponseEntity<?> modificacion(@RequestBody Cliente cliente){
 
         Cliente clienteEncontrado = clientes.stream().
                 filter(cli -> cli.getUsername().equalsIgnoreCase(cliente.getUsername())).
@@ -55,16 +67,18 @@ public class ClienteRestController {
         clienteEncontrado.setPassword(cliente.getPassword());
         clienteEncontrado.setNombre(cliente.getNombre());
 
-        return clienteEncontrado;
+        return ResponseEntity.ok(clienteEncontrado);
     }
 
     @DeleteMapping("/{userName}")
-    public void deleteCliente(@PathVariable String userName){
+    public ResponseEntity deleteCliente(@PathVariable String userName){
         Cliente clienteEncontrado = clientes.stream().
                 filter(cli -> cli.getUsername().equalsIgnoreCase(userName)).
                 findFirst().orElseThrow();
 
         clientes.remove(clienteEncontrado);
+
+        return ResponseEntity.noContent().build();
     }
 
 
