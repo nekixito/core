@@ -1,6 +1,7 @@
 package edu.tienda.core.controllers;
 
 import edu.tienda.core.domain.Cliente;
+import edu.tienda.core.exceptions.ResourceNotFoundException;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,18 +30,19 @@ public class ClienteRestController {
     @GetMapping("/{userName}")
     public ResponseEntity<?> getCliente(@PathVariable String userName){
 
-        return ResponseEntity.ok(clientes.stream().filter(cliente -> cliente.getUsername().equalsIgnoreCase(userName)).findFirst().orElseThrow());
-
+        return ResponseEntity.ok(clientes.stream()
+                .filter(cliente -> cliente.getUsername().equalsIgnoreCase(userName))
+                .findFirst().map(ResponseEntity::ok)
+                .orElseThrow( () -> new ResourceNotFoundException("Cliente " + userName + " no encontrado.")));
         /*
-        for (Cliente cli : clientes){
-            if (cli.getUsername().equalsIgnoreCase(userName)){
-                return cli;
+        for (Cliente cliente : clientes){
+            if (cliente.getUsername().equalsIgnoreCase(userName)){
+                return ResponseEntity.ok(cliente);
             }
         }
 
-        return null;
-
-         */
+        throw new ResourceNotFoundException("Cliente no encontrado");
+        */
     }
 
     @PostMapping
