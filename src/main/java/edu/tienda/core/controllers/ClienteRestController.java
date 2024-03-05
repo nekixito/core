@@ -1,6 +1,7 @@
 package edu.tienda.core.controllers;
 
 import edu.tienda.core.domain.Cliente;
+import edu.tienda.core.exceptions.BadRequestException;
 import edu.tienda.core.exceptions.ResourceNotFoundException;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,10 @@ public class ClienteRestController {
 
     @GetMapping("/{userName}")
     public ResponseEntity<?> getCliente(@PathVariable String userName){
+
+        if (userName.length() != 3){
+            throw new BadRequestException("El parametro nombre de usuario deber contener 3 caracteres");
+        }
 
         return ResponseEntity.ok(clientes.stream()
                 .filter(cliente -> cliente.getUsername().equalsIgnoreCase(userName))
