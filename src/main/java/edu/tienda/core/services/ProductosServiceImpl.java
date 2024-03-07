@@ -1,12 +1,14 @@
 package edu.tienda.core.services;
 
 import edu.tienda.core.domain.Producto;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProductosServiceImpl {
+@Service
+public class ProductosServiceImpl implements ProductoService{
 
     private List<Producto> productos= new ArrayList<>(Arrays.asList(
             new Producto(1,"Seart TV",9000.0,3),
