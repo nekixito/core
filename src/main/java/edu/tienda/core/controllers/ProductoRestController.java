@@ -2,7 +2,6 @@ package edu.tienda.core.controllers;
 
 import edu.tienda.core.domain.Producto;
 import edu.tienda.core.services.ProductoService;
-import edu.tienda.core.services.ProductosServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
-public class ProductosControllerRest {
+public class ProductoRestController {
 
     @Autowired
     private ProductoService productosService;
