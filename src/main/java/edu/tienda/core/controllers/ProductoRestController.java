@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/productos")
 public class ProductoRestController {
 
-    @Qualifier("MEMORY")
     @Autowired
     private ProductoService productosService;
 
