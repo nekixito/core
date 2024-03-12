@@ -1,5 +1,6 @@
 package edu.tienda.core.controllers;
 
+import edu.tienda.core.configurations.ConfigurationParameters;
 import edu.tienda.core.domain.Producto;
 import edu.tienda.core.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,13 @@ public class ProductoRestController {
     @Lazy
     private ProductoService productosService;
 
+    @Autowired
+    private ConfigurationParameters configurationParameters;
+
     @GetMapping
     public ResponseEntity<?> getProductos(){
+
+        System.out.println("params: " + configurationParameters.toString());
 
         List<Producto> productos = productosService.getProductos();
 
