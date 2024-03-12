@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,17 @@ public class ProductoRestController {
         System.out.println("params: " + configurationParameters.toString());
 
         List<Producto> productos = productosService.getProductos();
+
+        return ResponseEntity.ok(productos);
+    }
+
+    @GetMapping("/fake-productos")
+    public ResponseEntity<?> fakeProductosAPI(){
+        List<Producto> productos= new ArrayList<>(Arrays.asList(
+                new Producto(1,"Camiseta Juventus",1200.0,4),
+                new Producto(2,"Camiseta River Plate",1000.0,8),
+                new Producto(3,"Camiseta Boca Juniors",900.0,1)
+        ));
 
         return ResponseEntity.ok(productos);
     }
