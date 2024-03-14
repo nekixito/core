@@ -15,7 +15,7 @@ import java.util.List;
         value="productos.estrategia",
         havingValue = "EN_OTRA_API"
 )
-public class ProductosServiceImplApiExterna  implements ProductoService{
+public class ProductoServiceImplApiExterna implements ProductoService{
     @Override
     public List<Producto> getProductos() {
         RestTemplate restTemplate = new RestTemplate();
