@@ -5,10 +5,12 @@ import edu.tienda.core.presistance.entities.ProductoEntity;
 import edu.tienda.core.presistance.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -68,6 +70,33 @@ public class ProductoServiceBDImpl implements ProductoService{
 
         //Persistencia
         productoRepository.save(productoEntity);
+    }
+
+    @Override
+    public ResponseEntity<?> modificar(Producto producto) {
+
+        Optional<ProductoEntity> productoBuscado = productoRepository.findById(producto.getId());
+        Producto productoActualizado = new Producto();
+
+        System.out.println(productoBuscado);
+        if(productoBuscado.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            productoBuscado.get().setNombre(producto.getNombre());
+            productoBuscado.get().setPrecio(producto.getPrecio());
+            productoBuscado.get().setStock(producto.getStock());
+
+            ProductoEntity productoActualizadoEntity = productoRepository.save(productoBuscado.get());
+            productoActualizado.setId(productoActualizadoEntity.getId());
+            productoActualizado.setNombre(productoActualizadoEntity.getNombre());
+            productoActualizado.setPrecio(productoActualizadoEntity.getPrecio());
+            productoActualizado.setStock(productoActualizadoEntity.getStock());
+
+
+            return ResponseEntity.ok(productoActualizado);
+
+        }
+
     }
 
 }

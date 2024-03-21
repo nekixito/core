@@ -63,4 +63,11 @@ public class ProductoRestController {
         return ResponseEntity.created(location).body(producto);
 
     }
+
+    @PutMapping
+    public ResponseEntity<?> modificarProducto(@RequestBody Producto producto){
+        ResponseEntity<?> respuesta = productosService.modificar(producto);
+
+        return respuesta;
+    }
 }

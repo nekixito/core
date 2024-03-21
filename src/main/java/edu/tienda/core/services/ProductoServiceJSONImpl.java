@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.tienda.core.domain.Producto;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -35,5 +36,10 @@ public class ProductoServiceJSONImpl implements ProductoService{
     @Override
     public void saveProducto(Producto producto) {
 
+    }
+
+    @Override
+    public ResponseEntity<?> modificar(Producto producto) {
+        return null;
     }
 }

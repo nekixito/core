@@ -4,6 +4,7 @@ import edu.tienda.core.domain.Producto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,6 +36,11 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     public void saveProducto(Producto producto) {
 
+    }
+
+    @Override
+    public ResponseEntity<?> modificar(Producto producto) {
+        return null;
     }
 
 }

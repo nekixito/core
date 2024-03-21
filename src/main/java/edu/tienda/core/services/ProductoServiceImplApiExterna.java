@@ -34,4 +34,9 @@ public class ProductoServiceImplApiExterna implements ProductoService{
     public void saveProducto(Producto producto) {
 
     }
+
+    @Override
+    public ResponseEntity<?> modificar(Producto producto) {
+        return null;
+    }
 }
