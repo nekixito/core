@@ -12,4 +12,6 @@ public interface ProductoService {
     public void saveProducto(Producto producto);
 
     public ResponseEntity<?> modificar(Producto producto);
+
+    public ResponseEntity deleteProducto(Integer id);
 }

@@ -43,4 +43,9 @@ public class ProductoServiceImpl implements ProductoService{
         return null;
     }
 
+    @Override
+    public ResponseEntity deleteProducto(Integer id) {
+        return null;
+    }
+
 }

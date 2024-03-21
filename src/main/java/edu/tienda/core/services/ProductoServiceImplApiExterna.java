@@ -39,4 +39,9 @@ public class ProductoServiceImplApiExterna implements ProductoService{
     public ResponseEntity<?> modificar(Producto producto) {
         return null;
     }
+
+    @Override
+    public ResponseEntity deleteProducto(Integer id) {
+        return null;
+    }
 }

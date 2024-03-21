@@ -99,4 +99,11 @@ public class ProductoServiceBDImpl implements ProductoService{
 
     }
 
+    @Override
+    public ResponseEntity deleteProducto(Integer id) {
+        productoRepository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
